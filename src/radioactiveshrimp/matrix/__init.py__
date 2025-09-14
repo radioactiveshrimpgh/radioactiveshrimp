@@ -1,0 +1,5 @@
+"""
+Matrix subpackage containing rref function.
+"""
+from .elementary import rref
+__all__=['rref']
