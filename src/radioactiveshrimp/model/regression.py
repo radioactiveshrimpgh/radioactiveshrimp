@@ -800,27 +800,27 @@ class CauchyModel(GenericLikelihoodModel):
 # print(model.summary())
 
 #---------------------------------------------------------------------------------------------------------
-# multiple regression w/ pytorch
-import polars as p
-import pandas
-from sklearn.model_selection import train_test_split
+# # multiple regression w/ pytorch
+# import polars as p
+# import pandas
+# from sklearn.model_selection import train_test_split
 
-data = p.read_csv('/home/radioactiveshrimp/datasets/Folds5x2_pp.csv')
-X = data.select(['AT','V', 'AP', 'RH']).to_numpy().astype(np.float32)
-y = data['PE'].to_numpy().astype(np.float32)
+# data = p.read_csv('/home/radioactiveshrimp/datasets/Folds5x2_pp.csv')
+# X = data.select(['AT','V', 'AP', 'RH']).to_numpy().astype(np.float32)
+# y = data['PE'].to_numpy().astype(np.float32)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1/3, random_state=0)
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1/3, random_state=0)
 
-input_dim = X_train.shape[1]  # Number of features
+# input_dim = X_train.shape[1]  # Number of features
 
-Reg = CauchyRegression(input_dim=input_dim)
-print(input_dim)
-fittedMod = Reg.fit(X_train, y_train, X_test, y_test)
-print(Reg.fitted)
-print(Reg.get_parameters())
-Reg.scatterplotMatrix(pandas.read_csv('/home/radioactiveshrimp/datasets/Folds5x2_pp.csv'))
-Reg.residualPlot(X,y)
-print(Reg.finalLoss())
+# Reg = CauchyRegression(input_dim=input_dim)
+# print(input_dim)
+# fittedMod = Reg.fit(X_train, y_train, X_test, y_test)
+# print(Reg.fitted)
+# print(Reg.get_parameters())
+# Reg.scatterplotMatrix(pandas.read_csv('/home/radioactiveshrimp/datasets/Folds5x2_pp.csv'))
+# Reg.residualPlot(X,y)
+# print(Reg.finalLoss())
 
 #-------------------------------------------------------------------------------------
 # simple linear regression:
