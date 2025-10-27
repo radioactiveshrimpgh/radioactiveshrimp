@@ -750,19 +750,19 @@ class CauchyRegression(nn.Module):
         sns.pairplot(data)
         plt.show()
 
-    def residualPlot(self):
+    def residualPlot(self, X, y):
         # Convert to PyTorch tensors
-        self.X_train = torch.tensor(X, dtype=torch.float32)
-        self.y_train = torch.tensor(y, dtype=torch.float32).view(-1, 1)
+        X = torch.tensor(X, dtype=torch.float32)
+        y = torch.tensor(y, dtype=torch.float32).view(-1, 1)
         with torch.no_grad():
-            y_pred = self.model(self.X_train)
-            residual = y_pred - self.y_train
+            y_pred = self.model(X)
+            residual = y_pred - y
         # print(self.X_train)
         plt.figure(figsize=(10,6))
-        plt.scatter(self.X_train[:,0], residual, label='$X_{1}$')
-        plt.scatter(self.X_train[:,1], residual, label='$X_{2}$')
-        plt.scatter(self.X_train[:,2], residual, label='$X_{3}$')
-        plt.scatter(self.X_train[:,3], residual, label='$X_{4}$')
+        plt.scatter(X[:,0], residual, label='$X_{1}$')
+        plt.scatter(X[:,1], residual, label='$X_{2}$')
+        plt.scatter(X[:,2], residual, label='$X_{3}$')
+        plt.scatter(X[:,3], residual, label='$X_{4}$')
         plt.legend()
         plt.xlabel('Predictor X', fontsize=14)
         plt.ylabel(r'$\^y-y$', fontsize=14)
@@ -801,26 +801,26 @@ class CauchyModel(GenericLikelihoodModel):
 
 #---------------------------------------------------------------------------------------------------------
 # multiple regression w/ pytorch
-# import polars as p
-# import pandas
-# from sklearn.model_selection import train_test_split
+import polars as p
+import pandas
+from sklearn.model_selection import train_test_split
 
-# data = p.read_csv('/home/radioactiveshrimp/datasets/Folds5x2_pp.csv')
-# X = data.select(['AT','V', 'AP', 'RH']).to_numpy().astype(np.float32)
-# y = data['PE'].to_numpy().astype(np.float32)
+data = p.read_csv('/home/radioactiveshrimp/datasets/Folds5x2_pp.csv')
+X = data.select(['AT','V', 'AP', 'RH']).to_numpy().astype(np.float32)
+y = data['PE'].to_numpy().astype(np.float32)
 
-# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1/3, random_state=0)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1/3, random_state=0)
 
-# input_dim = X_train.shape[1]  # Number of features
+input_dim = X_train.shape[1]  # Number of features
 
-# Reg = CauchyRegression(input_dim=input_dim)
-# print(input_dim)
-# fittedMod = Reg.fit(X_train, y_train, X_test, y_test)
-# print(Reg.fitted)
-# print(Reg.get_parameters())
-# # Reg.scatterplotMatrix(pandas.read_csv('/home/radioactiveshrimp/datasets/Folds5x2_pp.csv'))
-# Reg.residualPlot()
-# print(Reg.finalLoss())
+Reg = CauchyRegression(input_dim=input_dim)
+print(input_dim)
+fittedMod = Reg.fit(X_train, y_train, X_test, y_test)
+print(Reg.fitted)
+print(Reg.get_parameters())
+Reg.scatterplotMatrix(pandas.read_csv('/home/radioactiveshrimp/datasets/Folds5x2_pp.csv'))
+Reg.residualPlot(X,y)
+print(Reg.finalLoss())
 
 #-------------------------------------------------------------------------------------
 # simple linear regression:
