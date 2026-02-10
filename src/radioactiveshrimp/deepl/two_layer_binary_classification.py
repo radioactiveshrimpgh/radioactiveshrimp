@@ -69,6 +69,11 @@ class binary_classification():
     def fit(self):
         y = self.y.unsqueeze(1).float()
         prev_loss = float('inf')
+        weights1 = torch.zeros(self.epochs, self.d,48)
+        weights2 = torch.zeros(self.epochs, 48,16)
+        weights3 = torch.zeros(self.epochs, 16,32)
+        weights4 = torch.zeros(self.epochs, 32,1)
+
         for t in range(self.epochs):
             # XW1 ->sigmoid w/ W2 = A1
             # A1*W3 -> sigmoid w/W4 = A2 = y_pred
@@ -106,6 +111,11 @@ class binary_classification():
                 self.W2.grad.zero_()
                 self.W3.grad.zero_()
                 self.W4.grad.zero_()
+                
+                weights1[t] = self.W1.clone() 
+                weights2[t] = self.W2.clone() 
+                weights3[t] = self.W3.clone() 
+                weights4[t] = self.W4.clone() 
 
             # Check for convergence
             if abs(prev_loss - current_loss) < self.tolerance:
@@ -115,7 +125,7 @@ class binary_classification():
             prev_loss = current_loss
 
         self.fitted = True
-        return self.W1, self.W2, self.W3, self.W4, self.loss_history
+        return self.W1, self.W2, self.W3, self.W4, self.loss_history, weights1,weights2,weights3,weights4
     
     def checkGPU(self):
         if torch.cuda.is_available():

@@ -11,3 +11,12 @@ wheels/
 
 # Generated .pdf files
 *.pdf
+
+# media dir
+media/
+
+# data dir
+data/
+
+#generated csv files
+*.csv
