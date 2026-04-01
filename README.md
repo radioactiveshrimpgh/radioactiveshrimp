@@ -37,3 +37,19 @@ cd scripts
 (might require running chmod 775 multiclass_impl.sh to make executable)  
 pdf files containing the generated plots for each run of the impl and boxplot should be found in script directory after run is complete.   
 
+# HW03Q6
+cd scripts 
+./imagenet_impl.sh
+may need to run chmod +x to make the script executable. 
+Command line arguments for the implemntation script can be modified within the bash script.
+A sample train, validation, and testing images as well as pdf files containing the generated plots for each run of the impl should be found in script directory after run is complete.
+
+To perform an inference using the trained model, use the imagenet_inference.py script. A model to load, image to be preicted, and file containing the class names present can be provided as command line arguments but default to those created using the imagenet_impl.sh script.
+
+# HW03Q7
+cd scripts
+./accnet_impl.sh
+may need to run chmod +x to make the script executable. 
+Command line arguments for the implemntation script can be modified within the bash script.
+Including the --load_file flag will use data stored from a previous run. Not including the flag will load, process, window, and store the data before running the rest of the training, etc. 
+A PDF file containing the generated plots for each run of the impl should be found in script directory after run is complete.
