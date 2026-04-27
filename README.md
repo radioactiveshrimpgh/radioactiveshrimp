@@ -53,3 +53,17 @@ may need to run chmod +x to make the script executable.
 Command line arguments for the implemntation script can be modified within the bash script.
 Including the --load_file flag will use data stored from a previous run. Not including the flag will load, process, window, and store the data before running the rest of the training, etc. 
 A PDF file containing the generated plots for each run of the impl should be found in script directory after run is complete.
+
+# HW04
+cd scripts
+./gen_models_impl.sh
+
+may need to run chmod +x to make script executable
+
+This script will run gen_models_impl.py and gen_models_inference.py in order to train and load model(s).
+
+When run from the script, outputs incldude 25 generated images, evaluation metrics plot, model .onnx file, and model training loss plot. 
+
+Sadly, due to the time it took to train and semester ending, only VAE functionality works. The start of GAN and Diffusion are present but do not currently work. The training, generation, and evaluation are designed to be model agnostic and should work with GAN and Diffusion if models are modified to match the process. 
+
+
